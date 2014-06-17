@@ -30,22 +30,31 @@ rankhospital <- function(state, outcome, num = "best") {
     stringRemove = "Not Available"
     rankTable<-subset(rankTable, rankTable[,colIndex] != stringRemove)
     
-    maxRow<-nrow(rankTable)
-    
-    # out invalid rows
-    
     # count hospitals to determine "worst" number
+    maxRow<-nrow(rankTable)    
     
     # Translate strings and change to numeric on rank
     numTranslate = numeric()
     numTranslate<-if(num == "best") {
         1
-        #as.numeric(numTranslate)
     }
     else if (num == "worst") {
         as.numeric(maxRow)
     }
     else as.numeric(num)
+    
+    
+    
+    # print(rankTable[,1:10])
+    # print(cbind(rankTable$Hospital.Name,rankTable[,colIndex]))
+    rankTable<-rankTable[order(as.numeric(as.character(rankTable[,colIndex])),
+                               rankTable$Hospital.Name),]
+    # print(rankTable$Hospital.Name)
+    # print(cbind(as.character(rankTable$Hospital.Name),as.numeric(rankTable[,17])))
+    
+    print(as.character(rankTable[numTranslate,2]))
+    
+    ## need to test order on simplest stuff just to see how it works
 
     ## Return hospital name in that state with the given rank
     ## 30-day death rate
