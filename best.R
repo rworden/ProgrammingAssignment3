@@ -1,6 +1,4 @@
 best <- function(state, outcome) {
-    #break ties
-    
     #read in table, set up unique states, hard code outcomes
     outcomeTable<-read.csv("outcome-of-care-measures.csv")
     uniqueStates<-as.character(unique(outcomeTable[,7]))
@@ -38,15 +36,9 @@ best <- function(state, outcome) {
     #return index value of minimum rate (use which.min, which I'm not using because only takes first value
     ## and coerces ties to be resolved)
     minRate<-min(as.numeric(as.character(outcomeTableTotal[,colIndex])))
-    # print(minRate)
+
     # return ALL rows where colIndex == minRate
     tiePopulate<-subset(outcomeTableTotal,as.numeric(as.character(outcomeTableTotal[,colIndex])) == minRate)
-    tiePopulate<-as.character(tiePopulate$Hospital.Name)
-    print(tiePopulate)
-    # tieBreak
-    
-
     ## Return hospital name in that state with lowest 30-day death rate
-
-    
+    tiePopulate<-as.character(tiePopulate$Hospital.Name)
 }
